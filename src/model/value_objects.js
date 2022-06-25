@@ -3,45 +3,45 @@
  * Author: Luis Atencio
  */
 function coordinate(lat, long) {
-	let _lat = lat;
-	let _long = long;
-	return {
-		latitude: function () {
-			return _lat;
-		},
-		longitude: function () {
-			return _long;
-		},
-		translate: function (dx, dy) {
-			return coordinate(_lat + dx, _long + dy);
-		},
-		toString: function () {
-			return '(' + _lat + ',' + _long + ')';
-		}
-	};
+  const _lat = lat;
+  const _long = long;
+  return {
+    latitude() {
+      return _lat;
+    },
+    longitude() {
+      return _long;
+    },
+    translate(dx, dy) {
+      return coordinate(_lat + dx, _long + dy);
+    },
+    toString() {
+      return `(${_lat},${_long})`;
+    },
+  };
 }
 
 function zipCode(code, location) {
-	let _code = code;
-	let _location = location || '';
-	return {
-		code: function () {
-			return _code;
-		},
-		location: function () {
-			return _location;
-		},
-		fromString: function (str) {
-			let parts = str.split('-');
-			return zipCode(parts[0], parts[1]);
-		},
-		toString: function () {
-			return _code + '-' + _location;
-		}
-	};
+  const _code = code;
+  const _location = location || '';
+  return {
+    code() {
+      return _code;
+    },
+    location() {
+      return _location;
+    },
+    fromString(str) {
+      const parts = str.split('-');
+      return zipCode(parts[0], parts[1]);
+    },
+    toString() {
+      return `${_code}-${_location}`;
+    },
+  };
 }
 
 module.exports = {
-	coordinate: coordinate,
-	zipCode: zipCode
+  coordinate,
+  zipCode,
 };

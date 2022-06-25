@@ -3,80 +3,69 @@
   Author: Luis Atencio
 */
 
-"use strict";
+describe('Chapter 6', () => {
+  const _ = require('lodash');
+  const R = require('ramda');
 
-describe('Chapter 6', function () {
+  const { Either } = require('../../model/monad/Either.js');
 
-	const _ = require('lodash');
-	const R = require('ramda');
+  const fork = (join, func1, func2) => (val) => join(func1(val), func2(val));
 
-	const Either = require('../../model/monad/Either.js').Either;
+  test('Compute Average Grade', () => {
+    const toLetterGrade = (grade) => {
+      if (grade >= 90) return 'A';
+      if (grade >= 80) return 'B';
+      if (grade >= 70) return 'C';
+      if (grade >= 60) return 'D';
+      return 'F';
+    };
 
-	const fork = (join, func1, func2) => (val) => join(func1(val), func2(val));
+    const computeAverageGrade = R.compose(toLetterGrade, fork(R.divide, R.sum, R.length));
 
-	test('Compute Average Grade', function () {
+    expect(computeAverageGrade([80, 90, 100])).toEqual('A');
+  });
 
-		const toLetterGrade = (grade) => {
-			if (grade >= 90) return 'A';
-			if (grade >= 80) return 'B';
-			if (grade >= 70) return 'C';
-			if (grade >= 60) return 'D';
-			return 'F';
-		};
+  test('Functional Combinator: fork', () => {
+    const timesTwo = fork((x) => x + x, R.identity, R.identity);
+    expect(timesTwo(1)).toEqual(2);
+    expect(timesTwo(2)).toEqual(4);
+  });
 
-		const computeAverageGrade =
-			R.compose(toLetterGrade, fork(R.divide, R.sum, R.length));
+  test('showStudent: cleanInput', () => {
+    const trim = (str) => str.replace(/^\s*|\s*$/g, '');
+    const normalize = (str) => str.replace(/\-/g, '');
+    const cleanInput = R.compose(normalize, trim);
 
-		expect(computeAverageGrade([80, 90, 100])).toEqual('A');
-	});
+    const input = ['', '-44-44-', '44444', ' 4 ', ' 4-4 '];
+    const assertions = ['', '4444', '44444', '4', '44'];
 
-	test('Functional Combinator: fork', function () {
-		const timesTwo = fork((x) => x + x, R.identity, R.identity);
-		expect(timesTwo(1)).toEqual(2);
-		expect(timesTwo(2)).toEqual(4);
-	});
+    expect.assertions(input.length);
 
-	test('showStudent: cleanInput', function () {
+    input.forEach((val, key) => {
+      expect(cleanInput(val)).toEqual(assertions[key]);
+    });
+  });
 
-		const trim = (str) => str.replace(/^\s*|\s*$/g, '');
-		const normalize = (str) => str.replace(/\-/g, '');
-		const cleanInput = R.compose(normalize, trim);
+  test('showStudent: checkLengthSsn', () => {
+    // validLength :: Number, String -> Boolean
+    const validLength = (len, str) => str.length === len;
 
-		const input = ['', '-44-44-', '44444', ' 4 ', ' 4-4 '];
-		const assertions = ['', '4444', '44444', '4', '44'];
-		
-		expect.assertions(input.length);
-		
-		input.forEach(function (val, key) {
-			expect(cleanInput(val)).toEqual(assertions[key]);
-		});
-	});
+    // checkLengthSsn :: String -> Either(String)
+    const checkLengthSsn = (ssn) => Either.of(ssn).filter(R.partial(validLength, [9]));
 
-	test('showStudent: checkLengthSsn', function () {
+    expect(checkLengthSsn('444444444').isRight).toBe(true);
+    expect(checkLengthSsn('').isLeft).toBe(true);
+    expect(checkLengthSsn('44444444').isLeft).toBe(true);
+    expect(checkLengthSsn('444444444').chain(R.length)).toEqual(9);
+  });
 
-		// validLength :: Number, String -> Boolean
-		const validLength = (len, str) => str.length === len;
+  test('showStudent: csv', () => {
+    // csv :: Array => String
+    const csv = (arr) => arr.join(',');
 
-		// checkLengthSsn :: String -> Either(String)
-		const checkLengthSsn = ssn => {
-			return Either.of(ssn)
-				.filter(R.partial(validLength, [9]));
-		};
-
-		expect(checkLengthSsn('444444444').isRight).toBe(true);
-		expect(checkLengthSsn('').isLeft).toBe(true);
-		expect(checkLengthSsn('44444444').isLeft).toBe(true);
-		expect(checkLengthSsn('444444444').chain(R.length)).toEqual(9);
-	});
-
-	test('showStudent: csv', function () {
-
-		// csv :: Array => String
-		const csv = arr => arr.join(',');
-
-		expect(csv(['']), '');
-		expect(csv(['Alonzo'])).toEqual('Alonzo');
-		expect(csv(['Alonzo', 'Church'])).toEqual('Alonzo,Church');
-		expect(csv(['Alonzo', '', 'Church'])).toEqual('Alonzo,,Church');
-	});
+    expect(csv(['']), '');
+    expect(csv(['Alonzo'])).toEqual('Alonzo');
+    expect(csv(['Alonzo', 'Church'])).toEqual('Alonzo,Church');
+    expect(csv(['Alonzo', '', 'Church'])).toEqual('Alonzo,,Church');
+  });
 });

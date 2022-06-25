@@ -8,18 +8,18 @@
 // 	'444-44-4444': new Person('444-44-4444', 'Alonzo', 'Church')
 // };
 
-var isObject = (val) => val && typeof val === 'object';
+const isObject = (val) => val && typeof val === 'object';
 
 function deepFreeze(obj) {
-	if(isObject(obj) && !Object.isFrozen(obj)) {
-		Object.keys(obj).forEach(name => deepFreeze(obj[name]));
-		Object.freeze(obj);
-	}
-	return obj;
-}	
+  if (isObject(obj) && !Object.isFrozen(obj)) {
+    Object.keys(obj).forEach((name) => deepFreeze(obj[name]));
+    Object.freeze(obj);
+  }
+  return obj;
+}
 
 module.exports = {
-	deepFreeze: deepFreeze	
+  deepFreeze,
 };
 
 // Helper objects
