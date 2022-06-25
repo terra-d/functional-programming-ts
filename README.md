@@ -1,15 +1,6 @@
 # Functional JavaScript Programming
 ##### By Luis Atencio
 
-Since this code uses ES6 artifacts, any code meant to run on the browser must be transpiled with either:
-
-* Babel
-* Traceur
-
-For Node.js users. This code requires:
-
-node --version > 6.3.1
-
 Please begin the project with
 
 ```bash
