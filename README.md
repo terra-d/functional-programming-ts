@@ -13,7 +13,7 @@ node --version > 6.3.1
 Please begin the project with
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 to load all of the required functional libraries.
@@ -40,7 +40,7 @@ Disclaimer: This is not part of the book, but an extra feature courtesy of the J
 To run all tests:
 
 ```bash
-$ npm test
+$ yarn test
 ```
 
 To run a chapter test:
@@ -58,5 +58,5 @@ $ jest --watchAll
 And for code coverage:
 
 ```bash
-$ npm run cover
+$ yarn run cover
 ```
