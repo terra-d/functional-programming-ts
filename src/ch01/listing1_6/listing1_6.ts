@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', (_event) => {
-  const elem = document.querySelector('#student-ssn');
-  elem.onkeyup = function (_e) {
+  const elem = document.querySelector('#student-ssn') as HTMLInputElement;
+  elem.onkeyup = function (_e: KeyboardEvent ) {
     let val = elem.value;
     if (val !== null && val.length !== 0) {
       val = val.replace(/^\s*|\s*$|\-/g, '');
