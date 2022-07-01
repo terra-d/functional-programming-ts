@@ -3,10 +3,20 @@ env:
   es2021: true
 extends:
   - airbnb-base
+  - eslint:all
+  - prettier
+  - plugin:@typescript-eslint/recommended
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: latest
   sourceType: module
 plugins:
   - '@typescript-eslint'
-rules: {}
+rules:
+  func-names: off
+  no-console: off
+  no-magic-numbers:
+    - error
+    - ignore: [0, 1]
+  no-unused-vars: off
+  '@typescript-eslint/no-unused-vars': off
