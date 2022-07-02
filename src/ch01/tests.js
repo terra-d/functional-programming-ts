@@ -1,7 +1,7 @@
 /**
-  Chapter 1 code listings
-  Author: Luis Atencio
-*/
+ *Chapter 1 code listings
+ *Author: Luis Atencio
+ */
 
 const R = require('ramda');
 const _ = require('lodash');
@@ -11,13 +11,17 @@ console.log(`Using Lodash: ${_.VERSION}`);
 
 QUnit.module('Chapter 1');
 
-// Use "run" as an alias in chapter 1. This is shown to just
-// warm up to the concept of composition
+/*
+ * Use "run" as an alias in chapter 1. This is shown to just
+ * warm up to the concept of composition
+ */
 const run = R.compose;
 
 QUnit.test('Listing 1.1 Functional printMessage', () => {
-  // The book uses the DOM to print. I'll use the console instead in Node.
-  // But it's the same mechanism
+  /*
+   * The book uses the DOM to print. I'll use the console instead in Node.
+   * But it's the same mechanism
+   */
 
   const printToConsole = (str) => {
     console.log(str);
@@ -31,8 +35,10 @@ QUnit.test('Listing 1.1 Functional printMessage', () => {
 });
 
 QUnit.test('Listing 1.2 Extending printMessage', () => {
-  // The book uses the DOM to print. I'll use the console instead in Node.
-  // But it's the same mechanism
+  /*
+   * The book uses the DOM to print. I'll use the console instead in Node.
+   * But it's the same mechanism
+   */
 
   const printToConsole = (str) => {
     console.log(str);
@@ -74,8 +80,10 @@ QUnit.test('Listing 1.3 Imperative showStudent function with side effects', () =
 const { curry } = R;
 
 QUnit.test('Listing 1.4 Decomposing the showStudent program', () => {
-  // The book uses a mock storage object in chapter 1.
-  // Instead of appending to the DOM, I write to the console
+  /*
+   * The book uses a mock storage object in chapter 1.
+   * Instead of appending to the DOM, I write to the console
+   */
 
   const { db } = require('./helper');
 
