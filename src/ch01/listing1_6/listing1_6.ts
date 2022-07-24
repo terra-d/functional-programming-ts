@@ -1,3 +1,5 @@
+'use strict'
+
 const phoneNumberLength = 9
 window.addEventListener('DOMContentLoaded', (_event) => {
   const elem = document.querySelector('#student-ssn') as HTMLInputElement;
