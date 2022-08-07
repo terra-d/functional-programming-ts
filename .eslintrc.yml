@@ -14,9 +14,14 @@ plugins:
   - '@typescript-eslint'
 rules:
   func-names: off
+  id-length: off
   no-console: off
   no-magic-numbers:
     - error
     - ignore: [0, 1]
   no-unused-vars: off
   '@typescript-eslint/no-unused-vars': off
+overrides:
+  - files: "src/**/tests.js"
+    # plugins: ["eslint-plugin-qunit"]
+    # extends: ["plugin:qunit/recommended"]
