@@ -2,6 +2,10 @@
   "name": "fp-js-manning",
   "description": "Code samples for Functional Programming in TypeScript",
   "version": "2.0.0",
+  "dependencies": {
+    "rxjs": "^7.5.5",
+    "rxjs-es": "5.0.0-beta.12"
+  },
   "devDependencies": {
     "@reactivex/rxjs": "^6.6.7",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
@@ -18,8 +22,6 @@
     "prettier": "^2.7.1",
     "qunit": "2.19.1",
     "ramda": "0.28.0",
-    "rxjs": "^7.5.5",
-    "rxjs-es": "5.0.0-beta.12",
     "sinon": "14.0.0",
     "sinon-qunit": "2.0.0",
     "typescript": "^4.7.4"
